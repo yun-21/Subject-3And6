@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+    <button onclick="getData()">눌러보세요</button>
+    <div id="content"></div>
+  </div>
+  <script>
+    const content = document.getElementById("content");
+    const getData = () => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', 'https://jsonplaceholder.typicode.com/posts', true);
+      xhr.send();
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const parseData = JSON.parse(xhr.response);
+          const func = (id, title, body) => {
+            const a = {
+              번호: id,
+              제목: title,
+              내용: body
+            }
+            return a
+          }
+          const arr = [];
+          parseData.forEach((element) => {
+            arr.push(func(element.id, element.title, element.body))
+          })
+          const rearr = [];
+          
+          arr.forEach((element)=>{
+            rearr.push(`<li>${JSON.stringify(element,null,"<br>")}</li><br>`)
+          })
+          content.innerHTML = rearr.join('')
+        } else {
+          console.error("Error", xhr.status, xhr.statusText)
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
