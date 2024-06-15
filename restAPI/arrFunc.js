@@ -9,8 +9,3 @@ const arrPush = (data, array, num) => {
         array.push(element[num])
     })
 }
-const allArr = {
-    id: idArr = [],
-    title: titleArr = [],
-    content: contentArr = []
-}
