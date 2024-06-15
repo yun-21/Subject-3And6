@@ -8,4 +8,5 @@ const arrPush = (data, array, num) => {
     data.forEach((element) => {
         array.push(element[num])
     })
+    return array
 }
