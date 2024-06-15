@@ -7,21 +7,19 @@ const getData = () => {
   xhr.onload = () => {
     if (xhr.status === 200) {
       const parseData = JSON.parse(xhr.response);
-      
-      const arr = [];
-      parseData.forEach((element) => {
-        arr.push(func(element.id, element.title, element.body))
-      })
-      let rearr = [];
-      for (let i = 0; i < 3; i++) {
-        rearr.push(Object.values(arr[i]));
+      let DataArr = [];
+      for (let i = 0; i < parseData.length; i++) {
+        DataArr.push(Object.values(parseData[i]));
       }
-      const titleArr = [];
-      const contentArr = [];
-      rearr.forEach((element) => {
-        titleArr.push(element[1]);
-        contentArr.push(element[2]);
-      })
+      
+      arrPush(DataArr,allArr.id, 1)
+      console.log(allArr.id)
+
+      // DataArr.forEach((element) => {
+      //   idArr.push(element[1]);
+      //   titleArr.push(element[2]);
+      //   contentArr.push(element[3]);
+      // })
       const Make = (title, content) => {
         const id = {
           제목: title,
@@ -30,19 +28,19 @@ const getData = () => {
         return JSON.stringify(id)
       }
 
-      const resultArr =[];
-      for(let i=0; i<titleArr.length; i++){
-        resultArr.push(`<li>${Make(titleArr[i],contentArr[i])}</li><br>`);
+      const resultArr = [];
+      for (let i = 0; i < titleArr.length; i++) {
+        resultArr.push(`<li>${Make(titleArr[i], contentArr[i])}</li><br>`);
       }
 
-      content.innerHTML=resultArr.join("");
+      content.innerHTML = resultArr.join("");
       const li = document.getElementsByTagName('li')
-      for(let key in li){
-        li[key].style.listStyle="decimal"
+      for (let key in li) {
+        li[key].style.listStyle = "decimal"
       }
 
-      } else {
-        console.error("Error", xhr.status, xhr.statusText)
+    } else {
+      console.error("Error", xhr.status, xhr.statusText)
     }
   }
 }
