@@ -1,4 +1,4 @@
-const content = document.getElementById("content");
+const  div = document.getElementById("div");
 const getData = () => {
   const xhr = new XMLHttpRequest();
   xhr.open('get', 'https://jsonplaceholder.typicode.com/posts', true);
@@ -11,34 +11,20 @@ const getData = () => {
       for (let i = 0; i < parseData.length; i++) {
         DataArr.push(Object.values(parseData[i]));
       }
-      
-      arrPush(DataArr,allArr.id, 1)
-      console.log(allArr.id)
 
-      // DataArr.forEach((element) => {
-      //   idArr.push(element[1]);
-      //   titleArr.push(element[2]);
-      //   contentArr.push(element[3]);
-      // })
-      const Make = (title, content) => {
-        const id = {
-          제목: title,
-          내용: content
-        }
-        return JSON.stringify(id)
-      }
+      const idArr = [];
+      const titleArr = [];
+      const contentArr = [];
+      const id = arrPush(DataArr, idArr, 1)
+      const title = arrPush(DataArr, titleArr, 2)
+      const content = arrPush(DataArr, contentArr, 3)
 
       const resultArr = [];
-      for (let i = 0; i < titleArr.length; i++) {
-        resultArr.push(`<li>${Make(titleArr[i], contentArr[i])}</li><br>`);
+      for (let i = 0; i < idArr.length; i++) {
+        resultArr.push(`<div style="border-radius:5px;background-color:lightblue;"><p style="text-align:center">${id[i]}번</p><p>제목 : ${title[i]}</p><p>내용 : ${content[i]}</p></div><br>`);
       }
 
-      content.innerHTML = resultArr.join("");
-      const li = document.getElementsByTagName('li')
-      for (let key in li) {
-        li[key].style.listStyle = "decimal"
-      }
-
+      div.innerHTML = resultArr.join("")
     } else {
       console.error("Error", xhr.status, xhr.statusText)
     }
